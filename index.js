@@ -166,7 +166,7 @@ app.post('/step', (req, res) => {
         });
   }
 
-  if(heads[0] === null && heads[1] === null){
+  if(heads[0] === -1 && heads[1] === -1){
     // console.log("ok");
     sum = 0;
     doble.forEach(d => {
@@ -182,14 +182,24 @@ app.post('/step', (req, res) => {
   }
 
 
-  cantNumber[piece[0]]--;
-  cantNumber[piece[1]]--;
-  pieces.forEach(p => {
-    if(p[0] === piece[0] && p[1] === piece[1]){
-      p[0] = -1;
-      p[1] = -1;
-    }
-  })
+  if(piece[0] != null){
+    cantNumber[piece[0]]--;
+    cantNumber[piece[1]]--;
+    let temp = [];
+    temp.push(piece[0]);
+    temp.push(piece[1]);
+
+    pieces.forEach(p => {
+      if(p[0] === piece[0] && p[1] === piece[1]){
+        p[0] = -2;
+        p[1] = -2;
+      }
+    });
+
+    piece = [];
+    piece.push(temp[0]);
+    piece.push(temp[1]);
+  }
 
   res.status(200).json({
     "piece" : piece,
