@@ -179,6 +179,19 @@ app.post('/step', (req, res) => {
         sum = cantNumber[d];
       }
     })
+
+    if(ok == false){
+      sum = 0;
+      let minFicha = 0;
+      pieces.forEach(p => {
+        if(Math.abs(cantNumber[p[0]] - cantNumber[p[1]]) > sum && Math.min(cantNumber[p[0]], cantNumber[p[1]]) > minFicha){
+          sum = Math.abs(cantNumber[p[0]] - cantNumber[p[1]]);
+          minFicha = Math.min(cantNumber[p[0]], cantNumber[p[1]]);
+          piece = p;
+          ok = true;
+        }
+      })
+    }
   }
 
 
